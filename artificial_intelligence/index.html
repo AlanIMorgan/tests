@@ -33,6 +33,11 @@
                 background: #333;
             }
 
+            h1 {
+                font-size: 2em;
+                margin-bottom: 5px;
+            }
+
             p {
                 margin-bottom: 5px;
             }
@@ -72,6 +77,8 @@
                 { input:[0, 0, 0], output:{dark:1}},
             ]);
 
+            // Convert HEX to RGB
+
             const hex2rgb = (hex) => {
 
                 const r = parseInt(hex.slice(1, 3), 16);
@@ -93,7 +100,7 @@
 
             demo.innerHTML += "<p> HEX: " + input + "</p>";
 
-            // What is the expected output of Dark Blue (0, 0, 128)?
+            // Work with input
 
             let result = net.run([color[0] / 255, color[1] / 255, color[2] / 255]);
 
