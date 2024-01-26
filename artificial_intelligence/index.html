@@ -111,6 +111,31 @@
 
             lighter = result["light"] / result["dark"];
 
+            if (darker > 0.90 && lighter > 0.90) {
+
+                contrast = "grey";
+            }
+
+            else if (lighter > darker && lighter < 9) {
+
+                contrast = "lightgrey";
+            }
+
+            else if (darker > lighter && darker < 9) {
+
+                contrast = "darkgrey";
+            }
+
+            else if (lighter >= 9) {
+
+                contrast = "White";
+            }
+
+            else if (darker >= 9) {
+
+                contrast = "Black";
+            }
+
             // Display the probability of "dark" and "light"
 
             demo.innerHTML += "Dark: " + result["dark"] + "<br>" + "Light: " + result["light"];
