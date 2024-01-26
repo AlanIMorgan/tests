@@ -10,6 +10,33 @@
         <script src="artificial_intelligence/browser.js"></script>
 
         <title> Artificial Intelligence </title>
+
+        <style>
+
+            * {
+                font-family: "Segoe UI", "Roboto", arial, sans-serif;
+                font-size: 14px;
+                line-height: 1.25;
+                padding: 0;
+                margin: 0;
+                border: none;
+                box-sizing: border-box;
+                color: #fff;
+                outline: none;
+                user-select: none;
+                -webkit-user-drag: none;
+            }
+
+            html {
+                height: 100%;
+                overflow: hidden;
+                background: #333;
+            }
+
+            p {
+                margin-bottom: 5px;
+            }
+        </style>
     </head>
 
     <body>
@@ -56,9 +83,15 @@
                 return [r, g, b];
             }
 
-            color = hex2rgb("#606060");
+            input = '#' + "606060";
 
-            document.getElementById("demo").innerHTML += color[0] + ", " + color[1] + ", " + color[2] + "<br>";
+            color = hex2rgb(input);
+
+            const demo = document.getElementById("demo");
+
+            demo.innerHTML += "<p> RGB: " + color[0] + ", " + color[1] + ", " + color[2] + "</p>";
+
+            demo.innerHTML += "<p> HEX: " + input + "</p>";
 
             // What is the expected output of Dark Blue (0, 0, 128)?
 
@@ -66,7 +99,7 @@
 
             // Display the probability of "dark" and "light"
 
-            document.getElementById("demo").innerHTML += "Dark: " + result["dark"] + "<br>" + "Light: " + result["light"];
+            demo.innerHTML += "Dark: " + result["dark"] + "<br>" + "Light: " + result["light"];
         </script>
     </body>
 </html>
