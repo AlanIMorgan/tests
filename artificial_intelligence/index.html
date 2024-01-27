@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
     <head>
 
@@ -11,7 +11,7 @@
 
         <script src="artificial_intelligence/browser.js"></script>
 
-        <title> Artificial Intelligence </title>
+        <title> Inteligencia Artificial </title>
 
         <style>
 
@@ -48,65 +48,75 @@
 
     <body>
 
-        <h1> Deep Learning with brain.js </h1>
+        <h1> Aprendizaje profundo (con brain.js) </h1>
 
         <div id="demo"></div>
 
         <script>
 
-            // Create a Neural Network
+            // Se construye una red neuronal para detectar colores
 
-            const net = new brain.NeuralNetwork();
+            const colorNN = new brain.NeuralNetwork();
 
-            // Train the Network with 4 input objects
+            // Se construye una red neuronal para detectar el brillo
 
-            net.train( [
+            const brightnessNN = new brain.NeuralNetwork();
 
-                // White RGB(255, 255, 255)
+            // Se entrena la red con algunos objetos de entrada
 
-                { input:[255/255, 255/255, 255/255], output:{light:1} },
+            colorNN.train( [
 
-                // Lightgrey (192,192,192)
-
-                { input:[192/255, 192/255, 192/255], output:{light:1} },
-
-                // Darkgrey (64, 64, 64)
-
-                { input:[65/255, 65/255, 65/255], output:{dark:1} },
-
-                // Black (0, 0, 0)
-
-                { input:[0, 0, 0], output:{dark:1} },
-
-                // Red RGB(255, 0, 0)
+                // Rojo RGB(255, 0, 0)
 
                 { input:[255/255, 0, 0], output:{red:1} },
 
-                // Red RGB(255, 119, 119)
+                // Rojo RGB(255, 119, 119)
 
                 { input:[255/255, 119/255, 119/255], output:{red:1} },
 
-                // Green RGB(0, 255, 0)
+                // Verde RGB(0, 255, 0)
 
                 { input:[0, 255/255, 0], output:{green:1} },
 
-                // Green RGB(119, 255, 119)
+                // Verde RGB(119, 255, 119)
 
                 { input:[119/255, 255/255, 119/255], output:{green:1} },
 
-                // Blue RGB(0, 0, 255)
+                // Azul RGB(0, 0, 255)
 
                 { input:[0, 0, 255/255], output:{blue:1} },
 
-                // Blue RGB(119, 119, 255)
+                // Azul RGB(119, 119, 255)
 
                 { input:[119/255, 119/255, 255/255], output:{blue:1} }
             ],
             {log: true} );
 
-            // Convert HEX to RGB
+            // Se entrena la red con algunos objetos de entrada
 
-            const hex2rgb = (hex) => {
+            brightnessNN.train( [
+
+                // Blanco RGB(255, 255, 255)
+
+                { input:[255/255, 255/255, 255/255], output:{light:1} },
+
+                // Gris claro (192,192,192)
+
+                { input:[192/255, 192/255, 192/255], output:{light:1} },
+
+                // Gris oscuro (64, 64, 64)
+
+                { input:[65/255, 65/255, 65/255], output:{dark:1} },
+
+                // Negro (0, 0, 0)
+
+                { input:[0, 0, 0], output:{dark:1} }
+            ],
+            {log: true} );
+
+            // Se declara una función para convertir el formato de color hexadecimal en RGB
+
+            const hexToRGB = (hex) => {
 
                 const r = parseInt(hex.slice(1, 3), 16);
 
@@ -117,58 +127,118 @@
                 return [r, g, b];
             }
 
+            // Se declara una variable para guardar el color que se analizará
+
             input = '#' + "797979";
 
             // input = '#' + "bb9977";
 
-            color = hex2rgb(input);
+            // Se convierte el valor ingresado
+
+            color = hexToRGB(input);
+
+            // Se declara una constante para conservar el elemento donde aparecerá la información
 
             const demo = document.getElementById("demo");
+
+            // Se muestra el color que se analizará
 
             demo.innerHTML += "<p> HEX: " + input + "</p>";
 
             demo.innerHTML += "<p> RGB: " + color[0] + ", " + color[1] + ", " + color[2] + "</p>";
 
-            // Work with output
+            // Se entrega el color a la IA de colores
 
-            result = net.run([color[0] / 255, color[1] / 255, color[2] / 255]);
+            colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
 
-            darker = result["dark"] / result["light"];
+            // Se guardan los resultados
 
-            lighter = result["light"] / result["dark"];
+            redResult = colorResult["red"];
+
+            greenResult = colorResult["green"];
+
+            blueResult = colorResult["blue"];
+
+            // Si cada uno de los resultados es menor a 0.1...
+
+            redResult < 0.1 && greenResult < 0.1 && blueResult < 0.1 ?
+
+                // ... Entonces, se entrega el color a la IA de brillo para saber el color, puesto que no hay diferencia de colores base
+
+                brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
+            :
+                // false
+
+                brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
+            ;
+
+            // Se divide el color por brillo
+
+            darker = brightnessResult["dark"] / brightnessResult["light"];
+
+            lighter = brightnessResult["light"] / brightnessResult["dark"];
+
+            // Si la oscuridad es mayor a 0.90 y la claridad también...
 
             if (darker > 0.90 && lighter > 0.90) {
+
+                // ... Entonces, el brillo es gris
 
                 contrast = "grey";
             }
 
+            // Si la oscuridad es mayor a 0.90 y la claridad también...
+
+            else if (darker > 0.90 && lighter > 0.90) {
+
+                // ... Entonces, el brillo es gris
+
+                contrast = "grey";
+            }
+
+            // Si no, si la claridad es mayor que la oscuridad, y la claridad es mayor a 9...
+
             else if (lighter > darker && lighter < 9) {
+
+                // ... El brillo es gris claro 
 
                 contrast = "lightgrey";
             }
 
+            // Si no, si la oscuridad es mayor que la claridad, y la oscuridad es mayor a 9...
+
             else if (darker > lighter && darker < 9) {
+
+                // ... El brillo es gris oscuro
 
                 contrast = "darkgrey";
             }
 
+            // Si no, si la claridad es mayor a 9...
+
             else if (lighter >= 9) {
+
+                // ... El brillo es completamente blanco
 
                 contrast = "White";
             }
 
+            // Si no, si la oscuridad es mayor a 9...
+
             else if (darker >= 9) {
+
+                // ... El brillo es completamente oscuro
 
                 contrast = "Black";
             }
 
             // Display the probability of "dark" and "light"
 
-            demo.innerHTML += "<p> Dark: " + result["dark"] + "<br>" + "Light: " + result["light"] + "</p>";
+            demo.innerHTML += "<p> Red: " + colorResult["red"] + "<br>" + "Green: " + colorResult["green"] + "<br>" + "Blue: " + colorResult["blue"] + "</p>";
+
+            demo.innerHTML += "<p> Dark: " + brightnessResult["dark"] + "<br>" + "Light: " + brightnessResult["light"] + "</p>";
 
             demo.innerHTML += "Contrast: " + contrast;
-
-            demo.innerHTML += "<p> Red: " + result["red"] + "<br>" + "Green: " + result["green"] + "<br>" + "Blue: " + result["blue"] + "</p>";
         </script>
     </body>
 </html>
