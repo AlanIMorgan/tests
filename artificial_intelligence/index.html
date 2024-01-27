@@ -161,7 +161,7 @@
 
             // Se crea la variable colorResult para usarla más tarde
 
-            colorResult = '';
+            colorResult = [];
 
             // Si no, si la claridad es mayor a 9...
 
@@ -190,7 +190,7 @@
                     colorName = "grey"
                 :
 
-                    // Si no, se entrega el color a la IA de colores
+                    // Si no, se entrega el color a la IA de colores y se conserva el resultado
 
                     colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
                 ;
@@ -200,7 +200,7 @@
 
             // Se analiza la variable colorResult...
 
-            switch (colorResult.length > 0) {
+            switch (Object.keys(colorResult).length > 0) {
 
                 // ... En caso de que no exista...
 
