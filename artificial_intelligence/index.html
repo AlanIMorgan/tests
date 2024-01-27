@@ -80,27 +80,27 @@
 
                 // Red RGB(255, 0, 0)
 
-                { input:[255/255, 0, 0], output:{light:1, red:1} },
+                { input:[255/255, 0, 0], output:{red:1} },
 
                 // Red RGB(255, 119, 119)
 
-                { input:[255/255, 119/255, 119/255], output:{light:1, red:1} },
+                { input:[255/255, 119/255, 119/255], output:{red:1} },
 
                 // Green RGB(0, 255, 0)
 
-                { input:[0, 255/255, 0], output:{light:1, green:1} },
+                { input:[0, 255/255, 0], output:{green:1} },
 
                 // Green RGB(119, 255, 119)
 
-                { input:[119/255, 255/255, 119/255], output:{light:1, green:1} },
+                { input:[119/255, 255/255, 119/255], output:{green:1} },
 
                 // Blue RGB(0, 0, 255)
 
-                { input:[0, 0, 255/255], output:{light:1, blue:1} },
+                { input:[0, 0, 255/255], output:{blue:1} },
 
                 // Blue RGB(119, 119, 255)
 
-                { input:[119/255, 119/255, 255/255], output:{light:1, blue:1} }
+                { input:[119/255, 119/255, 255/255], output:{blue:1} }
             ],
             {log: true} );
 
@@ -167,6 +167,8 @@
             demo.innerHTML += "<p> Dark: " + result["dark"] + "<br>" + "Light: " + result["light"] + "</p>";
 
             demo.innerHTML += "Contrast: " + contrast;
+
+            demo.innerHTML += "<p> Red: " + result["red"] + "<br>" + "Green: " + result["green"] + "Blue: " + result["blue"] + "</p>";
         </script>
     </body>
 </html>
