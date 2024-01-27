@@ -147,30 +147,9 @@
 
             demo.innerHTML += "<p> RGB: " + color[0] + ", " + color[1] + ", " + color[2] + "</p>";
 
-            // Se entrega el color a la IA de colores
+            // Se entrega el color a la IA de brillo para saber si hay diferencia de colores base
 
-            colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
-
-            // Se guardan los resultados
-
-            redResult = colorResult["red"];
-
-            greenResult = colorResult["green"];
-
-            blueResult = colorResult["blue"];
-
-            // Si cada uno de los resultados es menor a 0.1...
-
-            redResult < 0.1 && greenResult < 0.1 && blueResult < 0.1 ?
-
-                // ... Entonces, se entrega el color a la IA de brillo para saber el color, puesto que no hay diferencia de colores base
-
-                brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
-            :
-                // false
-
-                brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
-            ;
+            brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
 
             // Se divide el color por brillo
 
@@ -178,67 +157,71 @@
 
             lighter = brightnessResult["light"] / brightnessResult["dark"];
 
-            // Si la oscuridad es mayor a 0.90 y la claridad también...
-
-            if (darker > 0.90 && lighter > 0.90) {
-
-                // ... Entonces, el brillo es gris
-
-                contrast = "grey";
-            }
-
-            // Si la oscuridad es mayor a 0.90 y la claridad también...
-
-            else if (darker > 0.90 && lighter > 0.90) {
-
-                // ... Entonces, el brillo es gris
-
-                contrast = "grey";
-            }
-
-            // Si no, si la claridad es mayor que la oscuridad, y la claridad es mayor a 9...
-
-            else if (lighter > darker && lighter < 9) {
-
-                // ... El brillo es gris claro 
-
-                contrast = "lightgrey";
-            }
-
-            // Si no, si la oscuridad es mayor que la claridad, y la oscuridad es mayor a 9...
-
-            else if (darker > lighter && darker < 9) {
-
-                // ... El brillo es gris oscuro
-
-                contrast = "darkgrey";
-            }
-
             // Si no, si la claridad es mayor a 9...
 
-            else if (lighter >= 9) {
+            if (lighter >= 9) {
 
                 // ... El brillo es completamente blanco
 
                 contrast = "White";
-            }
+            } else
 
             // Si no, si la oscuridad es mayor a 9...
 
-            else if (darker >= 9) {
+            if (darker >= 9) {
 
                 // ... El brillo es completamente oscuro
 
                 contrast = "Black";
+            } else {
+
+                // Si la oscuridad es mayor a 0.90 y la claridad también...
+
+                darker > 0.90 && lighter > 0.90 ?
+
+                    // ... Entonces, el brillo (y, por lo tanto, el color) es gris
+
+                    contrast = "grey"
+                :
+
+                    // Si no, se entrega el color a la IA de colores
+
+                    colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
+                ;
             }
-
-            // Display the probability of "dark" and "light"
-
-            demo.innerHTML += "<p> Red: " + colorResult["red"] + "<br>" + "Green: " + colorResult["green"] + "<br>" + "Blue: " + colorResult["blue"] + "</p>";
 
             demo.innerHTML += "<p> Dark: " + brightnessResult["dark"] + "<br>" + "Light: " + brightnessResult["light"] + "</p>";
 
             demo.innerHTML += "Contrast: " + contrast;
+
+            // Se analiza la variable colorResult...
+
+            switch (colorResult) {
+
+                // ... En caso de que no exista...
+
+                case undefined:
+
+                    // ... No se hace nada
+
+                break;
+
+                default:
+
+                    // Por defecto, se conservan los resultados
+
+                    redResult = colorResult["red"];
+
+                    greenResult = colorResult["green"];
+
+                    blueResult = colorResult["blue"];
+
+                    // Y se muestran
+
+                    demo.innerHTML += "<p> Red: " + redResult + "<br>" + "Green: " + greenResult + "<br>" + "Blue: " + blueResult + "</p>";
+
+                break;
+            }
         </script>
     </body>
 </html>
