@@ -192,8 +192,6 @@
 
             demo.innerHTML += "<p> Oscuridad: " + brightnessResult["dark"] + "<br>" + "Claridad: " + brightnessResult["light"] + "</p>";
 
-            demo.innerHTML += "Nombre del color: " + colorName;
-
             // Se analiza la variable colorResult...
 
             switch (colorResult) {
@@ -206,9 +204,11 @@
 
                 break;
 
+                // Por defecto...
+
                 default:
 
-                    // Por defecto, se conservan los resultados
+                    // ... Se conservan los resultados
 
                     redResult = colorResult["red"];
 
@@ -222,6 +222,8 @@
 
                 break;
             }
+
+            // demo.innerHTML += "Nombre del color: " + colorName;
         </script>
     </body>
 </html>
