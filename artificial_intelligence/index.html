@@ -196,19 +196,11 @@
 
             // Se analiza la variable colorResult...
 
-            switch (colorResult) {
+            switch (colorResult == undefined) {
 
                 // ... En caso de que no exista...
 
-                case undefined:
-
-                    // ... No se hace nada
-
-                break;
-
-                // Por defecto...
-
-                default:
+                case false:
 
                     // ... Se conservan los resultados
 
