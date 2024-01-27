@@ -66,7 +66,7 @@
 
             const colorNN = new brain.NeuralNetwork();
 
-            // Se entrena la red con algunos objetos de entrada
+            // Se entrenan las redes con algunos objetos de entrada
 
             brightnessNN.train( [
 
@@ -87,8 +87,6 @@
                 { input:[0, 0, 0], output:{dark:1} }
             ],
             {log: true} );
-
-            // Se entrena la red con algunos objetos de entrada
 
             colorNN.train( [
 
@@ -153,7 +151,7 @@
 
             brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
 
-            // Se divide el color por brillo
+            // Se divide el resultado entre brillo y oscuridad para saber cuál es mayor
 
             darker = brightnessResult["dark"] / brightnessResult["light"];
 
@@ -163,11 +161,11 @@
 
             colorResult = [];
 
-            // Si no, si la claridad es mayor a 9...
+            // Si la claridad es mayor o igual a 9...
 
             if (lighter >= 9) {
 
-                // ... El brillo es completamente blanco
+                // ... El brillo (y, por lo tanto, el color) es completamente blanco
 
                 colorName = "White";
             } else
@@ -176,7 +174,7 @@
 
             if (darker >= 9) {
 
-                // ... El brillo es completamente oscuro
+                // ... El brillo (y, por lo tanto, el color) es completamente oscuro
 
                 colorName = "Black";
             } else {
@@ -194,7 +192,7 @@
 
                     colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
 
-                    // Se conservan los resultados
+                    // Se divide el resultado en colores y se conservan los valores
 
                     redResult = colorResult["red"];
 
@@ -202,11 +200,13 @@
 
                     blueResult = colorResult["blue"];
 
-                    // Y se muestran
+                    // Se muestran los valores de los colores
 
                     demo.innerHTML += "<p> Rojo: " + redResult + "<br>" + "Verde: " + greenResult + "<br>" + "Azul: " + blueResult + "</p>";
                 }
             }
+
+            // Se muestran los valores de claridad y oscuridad del color
 
             demo.innerHTML += "<p> Oscuridad: " + brightnessResult["dark"] + "<br>" + "Claridad: " + brightnessResult["light"] + "</p>";
 
