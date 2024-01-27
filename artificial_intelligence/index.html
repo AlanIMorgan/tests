@@ -177,31 +177,33 @@
                 colorName = "Black";
             } else {
 
+                // Si no, se entrega el color a la IA de colores y se conserva el resultado
+
+                colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
+
+                // Se divide el resultado en colores y se conservan los valores
+
+                redResult = colorResult["red"];
+
+                greenResult = colorResult["green"];
+
+                blueResult = colorResult["blue"];
+
                 // Si la oscuridad es mayor a 0.85 y la claridad también...
 
-                if (darker > 0.85 && lighter > 0.85 ) {
+                if (redResult > 0.19 && redResult < 0.31 && greenResult > 0.19 && greenResult < 0.31 && blueResult > 0.19 && blueResult < 0.31) {
 
                     // ... Entonces, el brillo (y, por lo tanto, el color) es gris
 
                     colorName = "grey"
                 } else {
 
-                    // Si no, se entrega el color a la IA de colores y se conserva el resultado
-
-                    colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
-
-                    // Se divide el resultado en colores y se conservan los valores
-
-                    redResult = colorResult["red"];
-
-                    greenResult = colorResult["green"];
-
-                    blueResult = colorResult["blue"];
-
-                    // Se muestran los valores de los colores
-
-                    demo.innerHTML += "<p> Rojo: " + redResult + "<br>" + "Verde: " + greenResult + "<br>" + "Azul: " + blueResult + "</p>";
+                    // ... Si no, se categoriza el color con los valores
                 }
+
+                // Se muestran los valores de los colores
+
+                demo.innerHTML += "<p> Rojo: " + redResult + "<br>" + "Verde: " + greenResult + "<br>" + "Azul: " + blueResult + "</p>";
             }
 
             // Se muestran los valores de claridad y oscuridad del color
