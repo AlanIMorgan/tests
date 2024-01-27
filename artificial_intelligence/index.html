@@ -64,19 +64,31 @@
 
                 // White RGB(255, 255, 255)
 
-                {input:[255/255, 255/255, 255/255], output:{light:1, color:"white"}},
+                {input:[255/255, 255/255, 255/255], output:{light:1}},
 
                 // Lightgrey (192,192,192)
 
-                {input:[192/255, 192/255, 192/255], output:{light:1, color:"lightgrey"}},
+                {input:[192/255, 192/255, 192/255], output:{light:1}},
 
                 // Darkgrey (64, 64, 64)
 
-                { input:[65/255, 65/255, 65/255], output:{dark:1, color:"darkgrey"}},
+                { input:[65/255, 65/255, 65/255], output:{dark:1}},
 
                 // Black (0, 0, 0)
 
-                { input:[0, 0, 0], output:{dark:1, color:"black"}},
+                { input:[0, 0, 0], output:{dark:1}},
+
+                // Red RGB(255, 0, 0)
+
+                {input:[255/255, 0, 0], output:{light:1, red:1}},
+
+                // Green RGB(0, 255, 0)
+
+                {input:[0, 255/255, 0], output:{light:1, green:1}},
+
+                // Blue RGB(0, 0, 255)
+
+                {input:[0, 0, 255/255], output:{light:1, blue:1}}
             ],
             {log: true});
 
@@ -103,7 +115,7 @@
 
             demo.innerHTML += "<p> RGB: " + color[0] + ", " + color[1] + ", " + color[2] + "</p>";
 
-            // Work with input
+            // Work with output
 
             result = net.run([color[0] / 255, color[1] / 255, color[2] / 255]);
 
@@ -141,8 +153,6 @@
             demo.innerHTML += "<p> Dark: " + result["dark"] + "<br>" + "Light: " + result["light"] + "</p>";
 
             demo.innerHTML += "Contrast: " + contrast;
-
-            demo.innerHTML += "AI contrast: " + result["color"];
         </script>
     </body>
 </html>
