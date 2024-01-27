@@ -131,7 +131,7 @@
 
             // Se declara una variable para guardar el color que se analizará
 
-            input = '#' + "474747";
+            input = '#' + "999999";
 
             // Se convierte el valor ingresado
 
@@ -199,11 +199,11 @@
                 } else {
 
                     // ... Si no, se categoriza el color con los valores
+
+                    // Se muestran los valores de los colores
+
+                    demo.innerHTML += "<p> Rojo: " + redResult + "<br>" + "Verde: " + greenResult + "<br>" + "Azul: " + blueResult + "</p>";
                 }
-
-                // Se muestran los valores de los colores
-
-                demo.innerHTML += "<p> Rojo: " + redResult + "<br>" + "Verde: " + greenResult + "<br>" + "Azul: " + blueResult + "</p>";
             }
 
             // Se muestran los valores de claridad y oscuridad del color
