@@ -64,19 +64,19 @@
 
                 // White RGB(255, 255, 255)
 
-                {input:[255/255, 255/255, 255/255], output:{light:1}},
+                {input:[255/255, 255/255, 255/255], output:{light:1, color:"white"}},
 
                 // Lightgrey (192,192,192)
 
-                {input:[192/255, 192/255, 192/255], output:{light:1}},
+                {input:[192/255, 192/255, 192/255], output:{light:1, color:"lightgrey"}},
 
                 // Darkgrey (64, 64, 64)
 
-                { input:[65/255, 65/255, 65/255], output:{dark:1}},
+                { input:[65/255, 65/255, 65/255], output:{dark:1, color:"darkgrey"}},
 
                 // Black (0, 0, 0)
 
-                { input:[0, 0, 0], output:{dark:1}},
+                { input:[0, 0, 0], output:{dark:1, color:"black"}},
             ],
             {log: true});
 
@@ -141,6 +141,8 @@
             demo.innerHTML += "<p> Dark: " + result["dark"] + "<br>" + "Light: " + result["light"] + "</p>";
 
             demo.innerHTML += "Contrast: " + contrast;
+
+            demo.innerHTML += "AI contrast: " + result["color"];
         </script>
     </body>
 </html>
