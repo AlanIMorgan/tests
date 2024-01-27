@@ -60,37 +60,49 @@
 
             // Train the Network with 4 input objects
 
-            net.train([
+            net.train( [
 
                 // White RGB(255, 255, 255)
 
-                {input:[255/255, 255/255, 255/255], output:{light:1}},
+                { input:[255/255, 255/255, 255/255], output:{light:1} },
 
                 // Lightgrey (192,192,192)
 
-                {input:[192/255, 192/255, 192/255], output:{light:1}},
+                { input:[192/255, 192/255, 192/255], output:{light:1} },
 
                 // Darkgrey (64, 64, 64)
 
-                { input:[65/255, 65/255, 65/255], output:{dark:1}},
+                { input:[65/255, 65/255, 65/255], output:{dark:1} },
 
                 // Black (0, 0, 0)
 
-                { input:[0, 0, 0], output:{dark:1}},
+                { input:[0, 0, 0], output:{dark:1} },
 
                 // Red RGB(255, 0, 0)
 
-                {input:[255/255, 0, 0], output:{light:1, red:1}},
+                { input:[255/255, 0, 0], output:{light:1, red:1} },
+
+                // Red RGB(255, 119, 119)
+
+                { input:[255/255, 119/255, 119/255], output:{light:1, red:1} },
 
                 // Green RGB(0, 255, 0)
 
-                {input:[0, 255/255, 0], output:{light:1, green:1}},
+                { input:[0, 255/255, 0], output:{light:1, green:1} },
+
+                // Green RGB(119, 255, 119)
+
+                { input:[119/255, 255/255, 119/255], output:{light:1, green:1} },
 
                 // Blue RGB(0, 0, 255)
 
-                {input:[0, 0, 255/255], output:{light:1, blue:1}}
+                { input:[0, 0, 255/255], output:{light:1, blue:1} },
+
+                // Blue RGB(119, 119, 255)
+
+                { input:[119/255, 119/255, 255/255], output:{light:1, blue:1} }
             ],
-            {log: true});
+            {log: true} );
 
             // Convert HEX to RGB
 
