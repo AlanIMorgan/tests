@@ -163,7 +163,7 @@
 
                 // ... El brillo es completamente blanco
 
-                contrast = "White";
+                colorName = "White";
             } else
 
             // Si no, si la oscuridad es mayor a 9...
@@ -172,7 +172,7 @@
 
                 // ... El brillo es completamente oscuro
 
-                contrast = "Black";
+                colorName = "Black";
             } else {
 
                 // Si la oscuridad es mayor a 0.90 y la claridad también...
@@ -181,7 +181,7 @@
 
                     // ... Entonces, el brillo (y, por lo tanto, el color) es gris
 
-                    contrast = "grey"
+                    colorName = "grey"
                 :
 
                     // Si no, se entrega el color a la IA de colores
@@ -190,9 +190,9 @@
                 ;
             }
 
-            demo.innerHTML += "<p> Dark: " + brightnessResult["dark"] + "<br>" + "Light: " + brightnessResult["light"] + "</p>";
+            demo.innerHTML += "<p> Oscuridad: " + brightnessResult["dark"] + "<br>" + "Claridad: " + brightnessResult["light"] + "</p>";
 
-            demo.innerHTML += "Contrast: " + contrast;
+            demo.innerHTML += "Nombre del color: " + colorName;
 
             // Se analiza la variable colorResult...
 
