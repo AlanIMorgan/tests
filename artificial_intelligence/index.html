@@ -159,6 +159,10 @@
 
             lighter = brightnessResult["light"] / brightnessResult["dark"];
 
+            // Se crea la variable colorResult para usarla más tarde
+
+            colorResult = '';
+
             // Si no, si la claridad es mayor a 9...
 
             if (lighter >= 9) {
@@ -196,11 +200,19 @@
 
             // Se analiza la variable colorResult...
 
-            switch (colorResult == undefined) {
+            switch (colorResult.length > 0) {
 
                 // ... En caso de que no exista...
 
                 case false:
+
+                    // No se hace algo
+
+                break;
+
+                // ... Por defecto...
+
+                default:
 
                     // ... Se conservan los resultados
 
