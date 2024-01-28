@@ -132,15 +132,19 @@
 
         <script>
 
+            // Se declara una constante para conservar el selector de color
+
+            const colorSelector = document.getElementById("colorSelector");
+
             // Se declara una constante para conservar el elemento donde aparecerá la información
 
             const demo = document.getElementById("demo");
 
             // Se declaran constantes para conservar las barras donde se mostrarán los resultados
 
-            darkBar = document.getElementById("dark_bar");
+            const darkBar = document.getElementById("dark_bar");
 
-            lightBar = document.getElementById("light_bar");
+            const lightBar = document.getElementById("light_bar");
 
             // Se construye una red neuronal para detectar el brillo
 
@@ -213,84 +217,89 @@
                 return [r, g, b];
             }
 
-            // Se declara una variable para conservar el código del color que se analizará
-
-            input = '#' + "bbbbbb";
-
-            // Se convierte el valor ingresado
-
-            color = hexToRGB(input);
-
-            // Se entrega el color a la IA de brillo para saber si hay diferencia de colores base
-
-            brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
-
-            // Se muestran las barras con los resultados
-
-            lightBar.value = brightnessResult["light"];
-
-            darkBar.value = brightnessResult["dark"];
-
-            demo.style.display = "inline-block"
-
-            // Se divide el resultado entre brillo y oscuridad para saber cuál es mayor
-
-            darker = brightnessResult["dark"] / brightnessResult["light"];
-
-            lighter = brightnessResult["light"] / brightnessResult["dark"];
-
             // Se crea la variable colorResult para usarla más tarde
 
             colorResult = [];
 
-            // Si la claridad es mayor o igual a 9...
+            // Se crea una escucha de evento para cuando se selecciona un color
 
-            if (lighter >= 9) {
+            colorSelector.addEventListener("input", ()=>{
 
-                // ... El brillo (y, por lo tanto, el color) es completamente blanco
+                // Se declara una variable para conservar el código del color que se analizará
 
-                colorName = "White";
-            } else
+                input = colorSelector.value;
 
-            // Si no, si la oscuridad es mayor a 9...
+                // Se convierte el valor ingresado
 
-            if (darker >= 9) {
+                color = hexToRGB(input);
 
-                // ... El brillo (y, por lo tanto, el color) es completamente oscuro
+                // Se entrega el color a la IA de brillo para saber si hay diferencia de colores base
 
-                colorName = "Black";
-            } else {
+                brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
 
-                // Si no, se entrega el color a la IA de colores y se conserva el resultado
+                // Se muestran las barras con los resultados
 
-                colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
+                lightBar.value = brightnessResult["light"];
 
-                // Se divide el resultado en colores y se conservan los valores
+                darkBar.value = brightnessResult["dark"];
 
-                redResult = colorResult["red"];
+                demo.style.display = "inline-block"
 
-                greenResult = colorResult["green"];
+                // Se divide el resultado entre brillo y oscuridad para saber cuál es mayor
 
-                blueResult = colorResult["blue"];
+                darker = brightnessResult["dark"] / brightnessResult["light"];
 
-                // Si la oscuridad es mayor a 0.85 y la claridad también...
+                lighter = brightnessResult["light"] / brightnessResult["dark"];
 
-                if (redResult > 0.19 && redResult < 0.31 && greenResult > 0.19 && greenResult < 0.31 && blueResult > 0.19 && blueResult < 0.31) {
+                // Si la claridad es mayor o igual a 9...
 
-                    // ... Entonces, el brillo (y, por lo tanto, el color) es gris
+                if (lighter >= 9) {
 
-                    colorName = "Grey"
+                    // ... El brillo (y, por lo tanto, el color) es completamente blanco
+
+                    colorName = "White";
+                } else
+
+                // Si no, si la oscuridad es mayor a 9...
+
+                if (darker >= 9) {
+
+                    // ... El brillo (y, por lo tanto, el color) es completamente oscuro
+
+                    colorName = "Black";
                 } else {
 
-                    // ... Si no, se categoriza el color con los valores
+                    // Si no, se entrega el color a la IA de colores y se conserva el resultado
 
-                    // Se muestran los valores de los colores
+                    colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255])
 
-                    demo.innerHTML += "<p> Rojo: " + redResult + "<br>" + "Verde: " + greenResult + "<br>" + "Azul: " + blueResult + "</p>";
+                    // Se divide el resultado en colores y se conservan los valores
+
+                    redResult = colorResult["red"];
+
+                    greenResult = colorResult["green"];
+
+                    blueResult = colorResult["blue"];
+
+                    // Si la oscuridad es mayor a 0.85 y la claridad también...
+
+                    if (redResult > 0.19 && redResult < 0.31 && greenResult > 0.19 && greenResult < 0.31 && blueResult > 0.19 && blueResult < 0.31) {
+
+                        // ... Entonces, el brillo (y, por lo tanto, el color) es gris
+
+                        colorName = "Grey"
+                    } else {
+
+                        // ... Si no, se categoriza el color con los valores
+
+                        // Se muestran los valores de los colores
+
+                        demo.innerHTML += "<p> Rojo: " + redResult + "<br>" + "Verde: " + greenResult + "<br>" + "Azul: " + blueResult + "</p>";
+                    }
                 }
-            }
 
-            // demo.innerHTML += "Nombre del color: " + colorName;
+                // demo.innerHTML += "Nombre del color: " + colorName;
+            });
         </script>
     </body>
 </html>
