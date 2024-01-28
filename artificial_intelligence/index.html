@@ -235,7 +235,7 @@
 
             // Se declara una función para crear los elementos necesarios que mostrarán la información
 
-            function createBars(id) {
+            function createBars(value) {
 
                 let container = document.createElement("div");
 
@@ -247,7 +247,7 @@
 
                 inputRange.setAttribute("type", "range");
 
-                inputRange.setAttribute("id", id);
+                inputRange.setAttribute("value", value);
 
                 demo.appendChild(container);
 
@@ -268,18 +268,6 @@
 
                 demo.innerHTML = '';
 
-                // Re-creamos los elementos
-
-                createBars("dark_bar");
-
-                createBars("light_bar");
-
-                // Se declaran variables para conservar las barras donde se mostrarán los resultados
-
-                darkBar = document.getElementById("dark_bar");
-
-                lightBar = document.getElementById("light_bar");
-
                 // Se declara una variable para conservar el código del color que se analizará
 
                 input = colorSelector.value;
@@ -292,11 +280,11 @@
 
                 brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
 
-                // Se muestran las barras con los resultados
+                // Se re-crean los elementos y se muestran las barras con los resultados
 
-                lightBar.value = brightnessResult["light"] * 10;
+                createBars(brightnessResult["light"] * 10);
 
-                darkBar.value = brightnessResult["dark"] * 10;
+                createBars(brightnessResult["dark"] * 10);
 
                 demo.style.display = "inline-block";
 
