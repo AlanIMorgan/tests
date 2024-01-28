@@ -41,7 +41,7 @@
 
             h1{
                 font-size: 2em;
-                margin-bottom: 20px;
+                margin-bottom: 100px;
                 color: #baf;
                 filter: drop-shadow(0px 0px 2px #000) drop-shadow(0px 0px 4px #baf);
             }
@@ -81,6 +81,7 @@
             }
 
             input[type="range"]{
+                display: none;
                 width: 25%;
             }
         </style>
@@ -88,26 +89,27 @@
 
     <body>
 
-        <h1> Aprendizaje profundo (con brain.js) </h1>
+        <h1> Aprendizaje profundo <br> (con brain.js) </h1>
 
         <h2> Selecciona un color: </h2>
 
         <input type="color" id="colorSelector">
 
-        <div id="demo"></div>
+        <div id="demo">
 
-        <div class="range_container">
+            <div class="range_container">
 
-            <span></span>
+                <span></span>
 
-            <input type="range" id="dark">
-        </div>
+                <input type="range" id="dark_bar">
+            </div>
 
-        <div class="range_container">
+            <div class="range_container">
 
-            <span></span>
+                <span></span>
 
-            <input type="range" id="light">
+                <input type="range" id="light_bar">
+            </div>
         </div>
 
         <script>
@@ -115,6 +117,12 @@
             // Se declara una constante para conservar el elemento donde aparecerá la información
 
             const demo = document.getElementById("demo");
+
+            // Se declaran constantes para conservar las barras donde se mostrarán los resultados
+
+            darkBar = document.getElementById("dark_bar");
+
+            lightBar = document.getElementById("light_bar");
 
             // Se construye una red neuronal para detectar el brillo
 
@@ -195,13 +203,19 @@
 
             color = hexToRGB(input);
 
-            // Se muestran los formatos del color que se analizará
-
-            // demo.innerHTML += "<p> HEX: " + input + "<br> RGB: " + color[0] + ", " + color[1] + ", " + color[2] + "</p>";
-
             // Se entrega el color a la IA de brillo para saber si hay diferencia de colores base
 
             brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
+
+            // Se muestran las barras con los resultados
+
+            lightBar.value = brightnessResult["light"];
+
+            darkBar.value = brightnessResult["dark"];
+
+            lightBar.style.display = "inline-block"
+
+            darkBar.style.display = "inline-block"
 
             // Se divide el resultado entre brillo y oscuridad para saber cuál es mayor
 
@@ -259,10 +273,6 @@
                     demo.innerHTML += "<p> Rojo: " + redResult + "<br>" + "Verde: " + greenResult + "<br>" + "Azul: " + blueResult + "</p>";
                 }
             }
-
-            // Se muestran los valores de claridad y oscuridad del color
-
-            demo.innerHTML += "<p> Oscuridad: " + brightnessResult["dark"] + "<br>" + "Claridad: " + brightnessResult["light"] + "</p>";
 
             // demo.innerHTML += "Nombre del color: " + colorName;
         </script>
