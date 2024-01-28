@@ -111,6 +111,8 @@
             <h2> Selecciona un color: </h2>
 
             <input type="color" id="colorSelector">
+
+            <a id="to_work"> Siguiente </a>
         </div>
 
         <div id="demo">
@@ -135,6 +137,10 @@
             // Se declara una constante para conservar el selector de color
 
             const colorSelector = document.getElementById("colorSelector");
+
+            // Se declara una constante para conservar el botón de análisis
+
+            const toWork = document.getElementById("to_work");
 
             // Se declara una constante para conservar el elemento donde aparecerá la información
 
@@ -223,7 +229,7 @@
 
             // Se crea una escucha de evento para cuando se selecciona un color
 
-            colorSelector.addEventListener("input", ()=>{
+            toWork.addEventListener("click", ()=>{
 
                 // Se declara una variable para conservar el código del color que se analizará
 
