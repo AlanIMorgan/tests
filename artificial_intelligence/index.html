@@ -235,13 +235,15 @@
 
             // Se declara una función para crear los elementos necesarios que mostrarán la información
 
-            function createBars(value) {
+            function createBars(txt, value) {
 
                 let container = document.createElement("div");
 
                 container.setAttribute("class", "range_container");
 
                 let span = document.createElement("span");
+
+                let label = document.createElement("label");
 
                 let inputRange = document.createElement("input");
 
@@ -250,6 +252,10 @@
                 inputRange.setAttribute("value", value);
 
                 demo.appendChild(container);
+
+                container.appendChild(label);
+
+                label.innerText = txt;
 
                 container.appendChild(span);
 
@@ -282,9 +288,9 @@
 
                 // Se re-crean los elementos y se muestran las barras con los resultados
 
-                createBars(brightnessResult["light"] * 10);
+                createBars("Claridad", brightnessResult["light"] * 10);
 
-                createBars(brightnessResult["dark"] * 10);
+                createBars("Oscuridad", brightnessResult["dark"] * 10);
 
                 demo.style.display = "inline-block";
 
