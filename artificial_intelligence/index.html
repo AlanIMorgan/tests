@@ -157,12 +157,6 @@
 
             const demo = document.getElementById("demo");
 
-            // Se declaran variables para conservar las barras donde se mostrarán los resultados
-
-            darkBar = document.getElementById("dark_bar");
-
-            lightBar = document.getElementById("light_bar");
-
             // Se construye una red neuronal para detectar el brillo
 
             const brightnessNN = new brain.NeuralNetwork();
@@ -274,6 +268,12 @@
                 createBars("dark_bar");
 
                 createBars("light_bar");
+
+                // Se declaran variables para conservar las barras donde se mostrarán los resultados
+
+                darkBar = document.getElementById("dark_bar");
+
+                lightBar = document.getElementById("light_bar");
 
                 // Se declara una variable para conservar el código del color que se analizará
 
