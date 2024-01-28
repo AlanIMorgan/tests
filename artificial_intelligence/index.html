@@ -67,6 +67,15 @@
                 filter: drop-shadow(0px 0px 1px #000) drop-shadow(0px 0px 4px #beb);
             }
 
+            #to_work{
+                display: inline-block;
+                padding: 5px;
+                margin: 5px;
+                background: #ffa;
+                color: #000;
+                border-radius: 5px;
+            }
+
             .range_container{
                 position: relative;
                 display: flex;
@@ -111,6 +120,8 @@
             <h2> Selecciona un color: </h2>
 
             <input type="color" id="colorSelector">
+
+            <br>
 
             <a id="to_work"> Siguiente </a>
         </div>
@@ -231,6 +242,10 @@
 
             toWork.addEventListener("click", ()=>{
 
+                // Se borra la información por si se ejecutó anteriormente el código
+
+                demo.innerHTML = '';
+
                 // Se declara una variable para conservar el código del color que se analizará
 
                 input = colorSelector.value;
@@ -245,9 +260,9 @@
 
                 // Se muestran las barras con los resultados
 
-                lightBar.value = brightnessResult["light"];
+                lightBar.value = brightnessResult["light"] * 10;
 
-                darkBar.value = brightnessResult["dark"];
+                darkBar.value = brightnessResult["dark"] * 10;
 
                 demo.style.display = "inline-block"
 
