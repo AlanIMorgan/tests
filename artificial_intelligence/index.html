@@ -17,13 +17,13 @@
 
             *{
                 font-family: "Segoe UI", "Roboto", arial, sans-serif;
-                font-size: 14px;
+                font-size: 20px;
                 line-height: 1.25;
                 padding: 0;
                 margin: 0;
                 border: none;
                 box-sizing: border-box;
-                color: #bbb;
+                color: #ddd;
                 outline: none;
                 user-select: none;
                 -webkit-user-drag: none;
@@ -32,7 +32,7 @@
             html{
                 height: 100%;
                 overflow: hidden;
-                background: #333;
+                background: #505967;
             }
 
             body{
@@ -42,10 +42,46 @@
             h1{
                 font-size: 2em;
                 margin-bottom: 20px;
+                color: #baf;
+                filter: drop-shadow(0px 0px 2px #000) drop-shadow(0px 0px 4px #baf);
+            }
+
+            h2{
+                font-size: 1.5em;
+                margin-bottom: 10px;
+                font-style: italic;
             }
 
             p{
                 margin-bottom: 5px;
+            }
+
+            input[type="color"]{
+                margin: 20px;
+                outline: 4px solid #beb;
+                border-radius: 2px;
+                filter: drop-shadow(0px 0px 1px #000) drop-shadow(0px 0px 4px #beb);
+            }
+
+            .range_container{
+                position: relative;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 25px;
+            }
+
+            .range_container span{
+                position: absolute;
+                z-index: 9;
+                display: inline-block;
+                width: 100%;
+                height: 100%;
+            }
+
+            input[type="range"]{
+                width: 25%;
             }
         </style>
     </head>
@@ -54,9 +90,31 @@
 
         <h1> Aprendizaje profundo (con brain.js) </h1>
 
+        <h2> Selecciona un color: </h2>
+
+        <input type="color" id="colorSelector">
+
         <div id="demo"></div>
 
+        <div class="range_container">
+
+            <span></span>
+
+            <input type="range" id="dark">
+        </div>
+
+        <div class="range_container">
+
+            <span></span>
+
+            <input type="range" id="light">
+        </div>
+
         <script>
+
+            // Se declara una constante para conservar el elemento donde aparecerá la información
+
+            const demo = document.getElementById("demo");
 
             // Se construye una red neuronal para detectar el brillo
 
@@ -129,7 +187,7 @@
                 return [r, g, b];
             }
 
-            // Se declara una variable para guardar el color que se analizará
+            // Se declara una variable para conservar el código del color que se analizará
 
             input = '#' + "bbbbbb";
 
@@ -137,13 +195,9 @@
 
             color = hexToRGB(input);
 
-            // Se declara una constante para conservar el elemento donde aparecerá la información
-
-            const demo = document.getElementById("demo");
-
             // Se muestran los formatos del color que se analizará
 
-            demo.innerHTML += "<p> HEX: " + input + "<br> RGB: " + color[0] + ", " + color[1] + ", " + color[2] + "</p>";
+            // demo.innerHTML += "<p> HEX: " + input + "<br> RGB: " + color[0] + ", " + color[1] + ", " + color[2] + "</p>";
 
             // Se entrega el color a la IA de brillo para saber si hay diferencia de colores base
 
