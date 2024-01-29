@@ -289,11 +289,11 @@
 
             // Se exportan las redes
 
-            const run = net.toFunction();
+            const runBrightnessNN = brightnessNN.toFunction();
 
-            const brightnessNNFunc = run(brightnessNNInputs);
+            const brightnessNNFunc = runBrightnessNN(brightnessNNInputs);
 
-            console.log(run.toString()); // ¡Copia y pega! ¡No necesitas importar brain.js!
+            console.log(run.runBrightnessNN()); // ¡Copia y pega! ¡No necesitas importar brain.js!
 
             // Se declara una función para convertir el formato de color hexadecimal en RGB
 
