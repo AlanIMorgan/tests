@@ -47,6 +47,13 @@
                 padding: 10px;
             }
 
+            .title_container{
+                width: 90%;
+                margin-bottom: 100px;
+                background: var(--bckgrnd);
+                border-radius: 10px;
+            }
+
             h1{
                 font-size: 2em;
                 padding: 20px;
@@ -62,6 +69,14 @@
 
             p{
                 margin-bottom: 5px;
+            }
+
+            .input_container{
+                padding: 10px;
+                margin: 0 0 20px;
+                border: 2px solid #fb9;
+                background: var(--bckgrnd);
+                border-radius: 10px;
             }
 
             input[type="color"]{
@@ -134,12 +149,12 @@
 
     <body>
 
-        <div style="width: 90%;margin-bottom: 100px;background: var(--bckgrnd);border-radius: 10px;">
+        <div class="title_container">
 
             <h1> Aprendizaje profundo <br> (con brain.js) </h1>
         </div>
 
-        <div style="padding: 10px;margin: 0 0 20px;border: 2px solid #fb9;background: var(--bckgrnd);border-radius: 10px;">
+        <div class="input_container">
 
             <h2> Selecciona un color: </h2>
 
@@ -334,20 +349,16 @@
 
                     blueResult = colorResult["blue"];
 
-                    // Si la oscuridad es mayor a 0.85 y la claridad también...
+                    // Si los colores son mayores a 0.20 y menores a 0.40...
 
                     if (redResult > 0.20 && redResult < 0.40 && greenResult > 0.19 && greenResult < 0.40 && blueResult > 0.19 && blueResult < 0.40) {
 
-                        // ... Entonces, el brillo (y, por lo tanto, el color) es gris
+                        // ... Entonces, el color es gris
 
                         colorName = "Grey";
                     } else {
 
-                        // ... Si no, se categoriza el color con los valores
-
-                        // Se muestran los valores de los colores
-
-                        demo.innerHTML += "<p> Rojo: " + redResult + "<br>" + "Verde: " + greenResult + "<br>" + "Azul: " + blueResult + "</p>";
+                        // ... Si no, se muestran los valores de los colores
 
                         createBars("Rojo: ", redResult * 10);
 
