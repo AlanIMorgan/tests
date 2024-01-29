@@ -233,9 +233,9 @@
 
             const colorNN = new brain.NeuralNetwork();
 
-            // Se entrenan las redes con algunos objetos de entrada
+            // Objetos de entrada para entrenar a las redes
 
-            brightnessNN.train( [
+            brightnessNNInputs = [
 
                 // Blanco RGB(255, 255, 255)
 
@@ -252,10 +252,9 @@
                 // Negro (0, 0, 0)
 
                 { input:[0, 0, 0], output:{dark:1} }
-            ],
-            {log: true} );
+            ];
 
-            colorNN.train( [
+            colorNNInputs = [
 
                 // Rojo RGB(255, 0, 0)
 
@@ -280,8 +279,21 @@
                 // Azul RGB(119, 119, 255)
 
                 { input:[119/255, 119/255, 255/255], output:{blue:1} }
-            ],
-            {log: true} );
+            ];
+
+            // Se entrenan las redes
+
+            brightnessNN.train(brightnessNNInputs, {log: true} );
+
+            colorNN.train(colorNNInputs, {log: true} );
+
+            // Se exportan las redes
+
+            const run = net.toFunction();
+
+            const brightnessNNFunc = run(brightnessNNInputs);
+
+            console.log(run.toString()); // ¡Copia y pega! ¡No necesitas importar brain.js!
 
             // Se declara una función para convertir el formato de color hexadecimal en RGB
 
