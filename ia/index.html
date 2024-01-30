@@ -287,20 +287,6 @@
 
             colorNN.train(colorNNInputs, {log: true} );
 
-            // Se exportan las redes y se muestran en la consola para usarlas independientemente de la librería brain.js
-
-            const runBrightnessNN = brightnessNN.toFunction();
-
-            const runColorNN = colorNN.toFunction();
-
-            const brightnessNNFunc = runBrightnessNN("#0000bb");
-
-            const colorNNFunc = runColorNN("#0000bb");
-
-            console.log(runBrightnessNN.toString());
-
-            console.log(runColorNN.toString());
-
             // Se declara una función para convertir el formato de color hexadecimal en RGB
 
             const hexToRGB = (hex) => {
@@ -313,6 +299,20 @@
 
                 return [r, g, b];
             }
+
+            // Se exportan las redes y se muestran en la consola para usarlas independientemente de la librería brain.js
+
+            const runBrightnessNN = brightnessNN.toFunction();
+
+            const runColorNN = colorNN.toFunction();
+
+            const brightnessNNFunc = runBrightnessNN(hexToRGB("#0000bb"));
+
+            const colorNNFunc = runColorNN(hexToRGB("#0000bb"));
+
+            console.log(runBrightnessNN.toString());
+
+            console.log(runColorNN.toString());
 
             // Se declara una función para crear los elementos necesarios que mostrarán la información
 
