@@ -365,8 +365,6 @@
 
                 // Se entrega el color a la IA de brillo para saber si hay diferencia de colores base
 
-                // brightnessResult = brightnessNN.run();
-
                 brightnessResult = runBrightnessNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
 
                 // Se re-crean los elementos y se muestran las barras con los resultados
@@ -402,8 +400,6 @@
                 } else {
 
                     // Si no, se entrega el color a la IA de colores y se conserva el resultado
-
-                    // colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
 
                     colorResult = runColorNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
 
