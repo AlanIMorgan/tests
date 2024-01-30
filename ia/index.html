@@ -16,7 +16,7 @@
         <style>
 
             :root{
-                --bckgrnd: #505967;
+                --bckgrnd: #404757;
             }
 
             *{
@@ -287,13 +287,19 @@
 
             colorNN.train(colorNNInputs, {log: true} );
 
-            // Se exportan las redes
+            // Se exportan las redes y se muestran en la consola para usarlas independientemente de la librería brain.js
 
             const runBrightnessNN = brightnessNN.toFunction();
 
+            const runColorNN = colorNN.toFunction();
+
             const brightnessNNFunc = runBrightnessNN(brightnessNNInputs);
 
-            console.log(runBrightnessNN.toString()); // ¡Copia y pega! ¡No necesitas importar brain.js!
+            const colorNNFunc = runColorNN(brightnessNNInputs);
+
+            console.log(runBrightnessNN.toString());
+
+            console.log(runColorNN.toString());
 
             // Se declara una función para convertir el formato de color hexadecimal en RGB
 
