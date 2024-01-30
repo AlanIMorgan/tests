@@ -283,9 +283,9 @@
 
             // Se entrenan las redes
 
-            brightnessNN.train(brightnessNNInputs, {log: true} );
+            brightnessNN.train(brightnessNNInputs);
 
-            colorNN.train(colorNNInputs, {log: true} );
+            colorNN.train(colorNNInputs);
 
             // Se declara una función para convertir el formato de color hexadecimal en RGB
 
@@ -300,15 +300,13 @@
                 return [r, g, b];
             }
 
-            // Se exportan las redes y se muestran en la consola para usarlas independientemente de la librería brain.js
+            // Se exportan las redes ya entrenadas
 
             const runBrightnessNN = brightnessNN.toFunction();
 
             const runColorNN = colorNN.toFunction();
 
-            const brightnessNNFunc = runBrightnessNN(hexToRGB("#0000bb"));
-
-            const colorNNFunc = runColorNN(hexToRGB("#0000bb"));
+            // Se muestran en la consola para usarlas independientemente de la librería brain.js
 
             console.log(runBrightnessNN.toString());
 
@@ -367,7 +365,9 @@
 
                 // Se entrega el color a la IA de brillo para saber si hay diferencia de colores base
 
-                brightnessResult = brightnessNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
+                // brightnessResult = brightnessNN.run();
+
+                brightnessResult = runBrightnessNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
 
                 // Se re-crean los elementos y se muestran las barras con los resultados
 
@@ -403,7 +403,9 @@
 
                     // Si no, se entrega el color a la IA de colores y se conserva el resultado
 
-                    colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
+                    // colorResult = colorNN.run([color[0] / 255, color[1] / 255, color[2] / 255]);
+
+                    colorResult = runColorNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
 
                     // Se divide el resultado en colores y se conservan los valores
 
