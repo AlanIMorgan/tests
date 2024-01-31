@@ -90,13 +90,13 @@ const hexToRGB = (hex) => {
 
 const runBrightnessNN = brightnessNN.toFunction();
 
-const runhueNN = hueNN.toFunction();
+const runHueNN = hueNN.toFunction();
 
 // Se muestran en la consola para usarlas independientemente de la librería brain.js
 
 console.log(runBrightnessNN.toString());
 
-console.log(runhueNN.toString());
+console.log(runHueNN.toString());
 
 // Se declara una función para crear los elementos necesarios que mostrarán la información
 
@@ -163,9 +163,9 @@ function createBars(saturation) {
     }
 }
 
-// Se crea la variable colorResult para usarla más tarde
+// Se crea la variable hueResult para usarla más tarde
 
-colorResult = [];
+hueResult = [];
 
 // Se crea una escucha de evento para cuando se selecciona un color
 
@@ -220,15 +220,15 @@ toWork.addEventListener("click", ()=>{
 
             // Por defecto, se entrega el color a la IA de colores y se conserva el resultado
 
-            colorResult = runhueNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
+            hueResult = runHueNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
 
             // Se divide el resultado en colores y se conservan los valores
 
-            redResult = colorResult["red"];
+            redResult = hueResult["red"];
 
-            greenResult = colorResult["green"];
+            greenResult = hueResult["green"];
 
-            blueResult = colorResult["blue"];
+            blueResult = hueResult["blue"];
 
             // Declaramos una variable para conservar el valor de verdad resultante de la comparación de cada color primario con porcentajes cercanos al gris
 
