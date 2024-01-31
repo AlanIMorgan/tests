@@ -73,6 +73,15 @@ brightnessNN.train(brightnessNNInputs);
 
 colorNN.train(colorNNInputs);
 
+// Se declara una función para mostrar la topología de las redes neuronales
+
+function showSVG(){
+
+    demo.innerHTML += brain.utilities.toSVG(brightnessNN);
+
+    demo.innerHTML += brain.utilities.toSVG(colorNN);
+}
+
 // Se declara una función para convertir el formato de color hexadecimal en RGB
 
 const hexToRGB = (hex) => {
