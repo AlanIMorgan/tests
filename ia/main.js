@@ -73,15 +73,6 @@ brightnessNN.train(brightnessNNInputs);
 
 colorNN.train(colorNNInputs);
 
-// Se declara una función para mostrar la topología de las redes neuronales
-
-function showSVG(){
-
-    demo.innerHTML += brain.utilities.toSVG(brightnessNN);
-
-    demo.innerHTML += brain.utilities.toSVG(colorNN);
-}
-
 // Se declara una función para convertir el formato de color hexadecimal en RGB
 
 const hexToRGB = (hex) => {
@@ -200,6 +191,12 @@ toWork.addEventListener("click", ()=>{
 
     createBars("B&W");
 
+    // Se muestra la topología de la red de claridad y oscuridad
+
+    demo.innerHTML += brain.utilities.toSVG(brightnessNN);
+
+    // Se muestra el recuadro de la información
+
     demo.style.display = "inline-block";
 
     // Se divide el resultado entre brillo y oscuridad para saber cuál es mayor
@@ -240,6 +237,10 @@ toWork.addEventListener("click", ()=>{
             // Si la comparación guardada resulta ser falsa, se crean las barras RGB
 
             !isGray ? createBars("hue") : false;
+
+            // Se muestra la topología de la red de claridad y oscuridad
+        
+            demo.innerHTML += brain.utilities.toSVG(colorNN);
         break;
     }
 });
