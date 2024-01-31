@@ -300,13 +300,6 @@
                 return [r, g, b];
             }
 
-            // Se declara una función para imprimir cualquier cosa necesaria
-
-            function printToDemo(txt){
-
-                demo.innerHTML = txt;
-            }
-
             // Se exportan las redes ya entrenadas
 
             const runBrightnessNN = brightnessNN.toFunction();
@@ -396,7 +389,7 @@
 
                 // Se borra la información por si se ejecutó anteriormente el código
 
-                printToDemo('');
+                demo.innerHTML = "";
 
                 // Se declara una variable para conservar el código del color que se analizará
 
@@ -432,9 +425,7 @@
 
                         // Evaluamos la claridad y la oscuridad, por separado, para imprimir su respectivo exceso
 
-                        lighter >= 9 ? printToDemo("Nombre del color: blanco") : false;
-
-                        darker >= 30 ? printToDemo("Nombre del color: negro") : false;
+                        lighter >= 9 || darker >= 30 ? createBars("B&W") : false;
                     break;
 
                     default:
@@ -455,9 +446,9 @@
 
                         isGray = redResult > 0.20 && redResult < 0.40 && greenResult > 0.20 && greenResult < 0.40 && blueResult > 0.20 && blueResult < 0.40;
 
-                        // Si la comparación guardada resulta ser cierta, se escribe que el nombre del color es gris, si no, se crean las barras RGB
+                        // Si la comparación guardada resulta ser falsa, se crean las barras RGB
 
-                        isGray ? printToDemo("Nombre del color: gris") : createBars("hue");
+                        !isGray ? createBars("hue") : false;
                     break;
                 }
             });
