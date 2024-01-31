@@ -300,6 +300,13 @@
                 return [r, g, b];
             }
 
+            // Se declara una función para imprimir cualquier cosa necesaria
+
+            function printToDemo(txt){
+
+                demo.innerHTML = txt;
+            }
+
             // Se exportan las redes ya entrenadas
 
             const runBrightnessNN = brightnessNN.toFunction();
@@ -314,7 +321,7 @@
 
             // Se declara una función para crear los elementos necesarios que mostrarán la información
 
-            function createBars(txt, value) {
+            function createElements(txt, value) {
 
                 let container = document.createElement("div");
 
@@ -343,6 +350,42 @@
                 container.appendChild(inputRange);
             }
 
+            // Se declara una función para crear los elementos conforme a la saturación del color
+
+            function createBars(saturation) {
+
+                // Evaluamos el valor que recibirá la función...
+
+                switch (saturation) {
+
+                    // En caso de que el valor sea "B&W"...
+
+                    case "B&W":
+
+                        // Se crean los elementos y se muestran las barras de claridad y oscuridad con los resultados
+
+                        createElements("Claridad: ", brightnessResult["light"] * 10);
+
+                        createElements("Oscuridad: ", brightnessResult["dark"] * 10);
+
+                    break;
+
+                    // En caso de que el valor sea "hue"...
+
+                    case "hue":
+
+                        // Se crean los elementos y se muestran las barras de claridad y oscuridad con los resultados
+
+                        createElements("Rojo: ", redResult * 10);
+
+                        createElements("Verde: ", greenResult * 10);
+
+                        createElements("Azul: ", blueResult * 10);
+
+                    break;
+                }
+            }
+
             // Se crea la variable colorResult para usarla más tarde
 
             colorResult = [];
@@ -353,7 +396,7 @@
 
                 // Se borra la información por si se ejecutó anteriormente el código
 
-                demo.innerHTML = '';
+                printToDemo('');
 
                 // Se declara una variable para conservar el código del color que se analizará
 
@@ -367,11 +410,9 @@
 
                 brightnessResult = runBrightnessNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
 
-                // Se re-crean los elementos y se muestran las barras con los resultados
+                // Se crean los elementos y se muestran las barras de claridad y oscuridad con los resultados
 
-                createBars("Claridad: ", brightnessResult["light"] * 10);
-
-                createBars("Oscuridad: ", brightnessResult["dark"] * 10);
+                createBars("B&W");
 
                 demo.style.display = "inline-block";
 
@@ -381,56 +422,44 @@
 
                 lighter = brightnessResult["light"] / brightnessResult["dark"];
 
-                // Si la claridad es mayor o igual a 9...
+                // Evaluamos si es falso que la claridad es mayor o igual a 9, así como también, si es falso que la oscuridad es mayor o igual a 30...
 
-                if (lighter >= 9) {
+                switch (!lighter >= 9 && !darker >= 30) {
 
-                    // ... El brillo (y, por lo tanto, el color) es completamente blanco
+                    // En caso de que alguna sea verdadera (y no falsa, como debería)...
 
-                    colorName = "White";
-                } else
+                    case false:
 
-                // Si no, si la oscuridad es mayor a 9...
+                        // Evaluamos la claridad y la oscuridad, por separado, para imprimir su respectivo exceso
 
-                if (darker >= 30) {
+                        lighter >= 9 ? printToDemo("Nombre del color: blanco") : false;
 
-                    // ... El brillo (y, por lo tanto, el color) es completamente oscuro
+                        darker >= 30 ? printToDemo("Nombre del color: negro") : false;
+                    break;
 
-                    colorName = "Black";
-                } else {
+                    default:
 
-                    // Si no, se entrega el color a la IA de colores y se conserva el resultado
+                        // Por defecto, se entrega el color a la IA de colores y se conserva el resultado
 
-                    colorResult = runColorNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
+                        colorResult = runColorNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
 
-                    // Se divide el resultado en colores y se conservan los valores
+                        // Se divide el resultado en colores y se conservan los valores
 
-                    redResult = colorResult["red"];
+                        redResult = colorResult["red"];
 
-                    greenResult = colorResult["green"];
+                        greenResult = colorResult["green"];
 
-                    blueResult = colorResult["blue"];
+                        blueResult = colorResult["blue"];
 
-                    // Si los colores son mayores a 0.20 y menores a 0.40...
+                        // Declaramos una variable para conservar el valor de verdad resultante de la comparación de cada color primario con porcentajes cercanos al gris
 
-                    if (redResult > 0.20 && redResult < 0.40 && greenResult > 0.19 && greenResult < 0.40 && blueResult > 0.19 && blueResult < 0.40) {
+                        isGray = redResult > 0.20 && redResult < 0.40 && greenResult > 0.20 && greenResult < 0.40 && blueResult > 0.20 && blueResult < 0.40;
 
-                        // ... Entonces, el color es gris
+                        // Si la comparación guardada resulta ser cierta, se escribe que el nombre del color es gris, si no, se crean las barras RGB
 
-                        colorName = "Grey";
-                    } else {
-
-                        // ... Si no, se muestran los valores de los colores
-
-                        createBars("Rojo: ", redResult * 10);
-
-                        createBars("Verde: ", greenResult * 10);
-
-                        createBars("Azul: ", blueResult * 10);
-                    }
+                        isGray ? printToDemo("Nombre del color: gris") : createBars("hue");
+                    break;
                 }
-
-                // demo.innerHTML += "Nombre del color: " + colorName;
             });
         </script>
     </body>
