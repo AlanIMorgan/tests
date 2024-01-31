@@ -417,7 +417,7 @@
 
                 // Evaluamos si es falso que la claridad es mayor o igual a 9, así como también, si es falso que la oscuridad es mayor o igual a 30...
 
-                switch (!lighter >= 9 && !darker >= 30) {
+                switch (!(lighter >= 9) && !(darker >= 30) ) {
 
                     // En caso de que alguna sea verdadera (y no falsa, como debería)...
 
