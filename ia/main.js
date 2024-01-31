@@ -17,7 +17,7 @@ const brightnessNN = new brain.NeuralNetwork();
 
 // Se construye una red neuronal para detectar colores
 
-const colorNN = new brain.NeuralNetwork();
+const hueNN = new brain.NeuralNetwork();
 
 // Objetos de entrada para entrenar a las redes
 
@@ -40,7 +40,7 @@ brightnessNNInputs = [
     { input:[0, 0, 0], output:{dark:1} }
 ];
 
-colorNNInputs = [
+hueNNInputs = [
 
     // Rojo RGB(255, 0, 0)
 
@@ -71,7 +71,7 @@ colorNNInputs = [
 
 brightnessNN.train(brightnessNNInputs);
 
-colorNN.train(colorNNInputs);
+hueNN.train(hueNNInputs);
 
 // Se declara una función para convertir el formato de color hexadecimal en RGB
 
@@ -90,13 +90,13 @@ const hexToRGB = (hex) => {
 
 const runBrightnessNN = brightnessNN.toFunction();
 
-const runColorNN = colorNN.toFunction();
+const runhueNN = hueNN.toFunction();
 
 // Se muestran en la consola para usarlas independientemente de la librería brain.js
 
 console.log(runBrightnessNN.toString());
 
-console.log(runColorNN.toString());
+console.log(runhueNN.toString());
 
 // Se declara una función para crear los elementos necesarios que mostrarán la información
 
@@ -220,7 +220,7 @@ toWork.addEventListener("click", ()=>{
 
             // Por defecto, se entrega el color a la IA de colores y se conserva el resultado
 
-            colorResult = runColorNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
+            colorResult = runhueNN( [color[0] / 255, color[1] / 255, color[2] / 255] );
 
             // Se divide el resultado en colores y se conservan los valores
 
@@ -240,7 +240,7 @@ toWork.addEventListener("click", ()=>{
 
             // Se muestra la topología de la red de claridad y oscuridad
         
-            demo.innerHTML += brain.utilities.toSVG(colorNN);
+            demo.innerHTML += brain.utilities.toSVG(hueNN);
         break;
     }
 });
